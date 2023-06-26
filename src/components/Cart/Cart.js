@@ -1,10 +1,13 @@
 import CartItem from "./CartItem";
 import "./Cart.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyCart } from "../store/cart";
 
 function Cart() {
     const cart = useSelector((state) => state.produce);
     const produce = {};
+
+    const dispatch = useDispatch();
 
     const cartItems = Object.values(cart).map((item) => {
         return {
@@ -30,6 +33,8 @@ function Cart() {
         );
     };
 
+    const handlePurchase = () => dispatch(emptyCart());
+
     return (
         <div className="cart">
             <ul>
@@ -39,7 +44,9 @@ function Cart() {
             </ul>
             <hr />
             <form onSubmit={onSubmit}>
-                <button type="submit">Purchase</button>
+                <button type="submit" onClick={handlePurchase}>
+                    Purchase
+                </button>
             </form>
         </div>
     );

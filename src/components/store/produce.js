@@ -1,6 +1,7 @@
 import produceData from "../../mockData/produce.json";
 
 const POPULATE = "produce/POPULATE";
+const LIKE_UNLIKE = "produce/LIKE_UNLIKE_PRODUCT";
 
 export const populateProduce = () => {
     return {
@@ -9,14 +10,28 @@ export const populateProduce = () => {
     };
 };
 
+export const likeUnlikeProduct = (productId) => {
+    return {
+        type: LIKE_UNLIKE,
+        productId,
+    };
+};
+
 export const produceReducer = (state = {}, action) => {
     switch (action.type) {
         case POPULATE:
             const newState = {};
-            action.produce.forEach((produce) => {
-                newState[produce.id] = produce;
+            action.produce.forEach((product) => {
+                newState[product.id] = product;
             });
             return newState;
+
+        case LIKE_UNLIKE:
+            const nextState = { ...state };
+            const id = action.productId;
+            nextState[id].liked = !nextState[id].liked;
+            return nextState;
+
         default:
             return state;
     }
