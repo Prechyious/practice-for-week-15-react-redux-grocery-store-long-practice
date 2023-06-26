@@ -7,12 +7,14 @@ import App from "./App";
 
 import configStore from "./components/store";
 import { populateProduce } from "./components/store/produce";
+import { addToCart } from "./components/store/cart";
 
 const store = configStore();
 
 if (process.env.NODE_ENV !== "production") {
     window.store = store;
     window.populateProduce = populateProduce;
+    window.addToCart = addToCart;
 }
 
 function Root() {
