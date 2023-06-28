@@ -17,6 +17,8 @@ export const likeUnlikeProduct = (productId) => {
     };
 };
 
+export const getAllProduce = (state) => Object.values(state.produce);
+
 export const produceReducer = (state = {}, action) => {
     switch (action.type) {
         case POPULATE:

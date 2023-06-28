@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { emptyCart } from "../store/cart";
 
 function Cart() {
-    const cart = useSelector((state) => state.produce);
-    const produce = {};
+    const cart = useSelector((state) => state.cart);
+    const produce = useSelector((state) => state.produce);
 
     const dispatch = useDispatch();
 
@@ -33,7 +33,15 @@ function Cart() {
         );
     };
 
-    const handlePurchase = () => dispatch(emptyCart());
+    const handlePurchase = () => {
+        dispatch(emptyCart());
+        window.alert(
+            "Purchased the following:\n" +
+                `${cartItems
+                    .map((item) => `${item.count} of ${item.name}`)
+                    .join("\n")}`
+        );
+    };
 
     return (
         <div className="cart">

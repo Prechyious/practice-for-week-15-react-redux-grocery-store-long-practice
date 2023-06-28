@@ -67,7 +67,7 @@ export const cartReducer = (state = {}, action) => {
             return nextState;
 
         case DECREMENT_COUNT:
-            nextState[id].count > 0
+            nextState[id].count > 1
                 ? nextState[id].count--
                 : delete nextState[id];
             return nextState;

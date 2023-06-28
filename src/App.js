@@ -2,15 +2,28 @@ import { useEffect, useState } from "react";
 import Cart from "./components/Cart";
 import ProduceList from "./components/ProduceList";
 import { populateProduce } from "./components/store/produce";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "./components/store/cart";
 
 function App() {
     const [showCart, setShowCart] = useState(false);
     const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cart);
 
     useEffect(() => {
         dispatch(populateProduce());
     }, []);
+
+    useEffect(() => {
+        if (Object.keys(cartItems).length > 0) {
+            setShowCart(true);
+        }
+    }, [cartItems]);
+
+    const handleAddToCart = (productId) => {
+        dispatch(addToCart(productId));
+        setShowCart(true);
+    };
 
     return (
         <>
@@ -25,7 +38,7 @@ function App() {
                 </button>
             </nav>
             <main style={showCart ? { marginRight: "300px" } : {}}>
-                <ProduceList />
+                <ProduceList onAddToCart={handleAddToCart} />
             </main>
             <div
                 className="sidebar"
